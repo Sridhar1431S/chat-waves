@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from "react";
 import { 
   Users, 
@@ -100,42 +101,8 @@ const quickMessages = [
 
 const reactionEmojis = ['👍', '❤️', '😂', '😮', '😢', '😡', '🎉', '🚀'];
 
-// Particle Component
-const LoveParticle = ({ id, color, size, animationDuration }: { id: number, color: string, size: number, animationDuration: number }) => {
-  const randomX = Math.random() * 100;
-  const randomY = Math.random() * 100;
-  const randomDelay = Math.random() * 2;
-  
-  return (
-    <motion.div
-      className="absolute"
-      style={{
-        left: `${randomX}%`,
-        top: `${randomY}%`,
-        width: size,
-        height: size,
-        backgroundColor: color,
-        borderRadius: '50%',
-      }}
-      initial={{ scale: 0, opacity: 0 }}
-      animate={{ 
-        scale: [0, 1, 1, 0], 
-        opacity: [0, 0.8, 0.8, 0],
-        x: [0, Math.random() * 100 - 50],
-        y: [0, Math.random() * -100],
-      }}
-      transition={{ 
-        duration: animationDuration,
-        delay: randomDelay,
-        repeat: Infinity,
-        repeatDelay: Math.random() * 2,
-      }}
-    />
-  );
-};
-
-// Heart SVG Component
-const Heart = ({ className }: { className?: string }) => {
+// Custom HeartIcon SVG Component (renamed from Heart to avoid conflict)
+const HeartIcon = ({ className }: { className?: string }) => {
   return (
     <motion.svg
       viewBox="0 0 24 24"
@@ -149,29 +116,6 @@ const Heart = ({ className }: { className?: string }) => {
         d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"
       />
     </motion.svg>
-  );
-};
-
-// Animated Background Component
-const AnimatedBackground = () => {
-  const particles = Array(30).fill(0).map((_, index) => {
-    const size = Math.random() * 8 + 4;
-    return (
-      <LoveParticle 
-        key={index}
-        id={index}
-        color={index % 3 === 0 ? '#ff6b6b' : index % 3 === 1 ? '#f06292' : '#ec407a'}
-        size={size}
-        animationDuration={Math.random() * 3 + 2}
-      />
-    );
-  });
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-      {particles}
-      <div className="absolute inset-0 bg-gradient-to-b from-purple-500/10 to-pink-500/5 z-0"></div>
-    </div>
   );
 };
 
@@ -800,7 +744,7 @@ const Chat = () => {
       {/* Footer */}
       <footer className="bg-white border-t px-4 py-3 text-xs text-center text-gray-500">
         <div className="flex items-center justify-center gap-1">
-          Made with <Heart /> by Echo Chat Waves
+          Made with <HeartIcon /> by Echo Chat Waves
         </div>
         <div className="mt-1">© {new Date().getFullYear()} All rights reserved</div>
       </footer>
