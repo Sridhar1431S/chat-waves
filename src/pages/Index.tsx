@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from "react";
 import { 
   Users, 
@@ -10,7 +9,7 @@ import {
   ThumbsUp, 
   ThumbsDown, 
   MessageCircle,
-  Typing
+  Type
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -494,7 +493,7 @@ const Chat = () => {
                     <span className="text-xs text-gray-500">
                       {user.isTyping ? (
                         <span className="flex items-center gap-1 text-purple-600">
-                          <Typing className="h-3 w-3" /> typing...
+                          <Type className="h-3 w-3" /> typing...
                         </span>
                       ) : (
                         user.status === 'online' ? 'Active now' : 
@@ -552,7 +551,7 @@ const Chat = () => {
                       {selectedUser.name} 
                       {selectedUser.isTyping && (
                         <span className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full flex items-center gap-1">
-                          <Typing className="h-3 w-3" /> typing...
+                          <Type className="h-3 w-3" /> typing...
                         </span>
                       )}
                     </h3>
@@ -729,7 +728,7 @@ const Chat = () => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -5 }}
                     >
-                      <Typing className="h-3 w-3" /> 
+                      <Type className="h-3 w-3" /> 
                       You are typing...
                     </motion.div>
                   )}
