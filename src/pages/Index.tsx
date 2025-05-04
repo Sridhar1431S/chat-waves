@@ -9,7 +9,8 @@ import {
   ThumbsUp, 
   ThumbsDown, 
   MessageCircle,
-  Type
+  Type,
+  Heart
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -19,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { AnimatedBackground } from "@/components/LoveParticles";
 
 // Types
 type User = {
@@ -369,13 +371,8 @@ const Chat = () => {
 
   const selectUser = (user: User) => {
     setSelectedUser(user);
-    setShowAnimatedBg(true);
+    setShowAnimatedBg(true); // Activate the animated background
     scrollToBottom();
-    
-    // Hide animation after 5 seconds
-    setTimeout(() => {
-      setShowAnimatedBg(false);
-    }, 5000);
   };
 
   return (
@@ -541,25 +538,37 @@ const Chat = () => {
           {selectedUser ? (
             <>
               {/* Chat Header */}
-              <div className="p-4 border-b bg-white">
-                <div className="flex items-center gap-3">
-                  <Avatar className="h-10 w-10">
-                    <img src={selectedUser.avatar} alt={selectedUser.name} />
-                  </Avatar>
-                  <div>
-                    <h3 className="font-medium flex items-center gap-2">
-                      {selectedUser.name} 
-                      {selectedUser.isTyping && (
-                        <span className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full flex items-center gap-1">
-                          <Type className="h-3 w-3" /> typing...
-                        </span>
-                      )}
-                    </h3>
-                    <p className="text-xs text-gray-500">
-                      {selectedUser.status === 'online' ? 'Active now' : 
-                       `${selectedUser.status.charAt(0).toUpperCase() + selectedUser.status.slice(1)}`}
-                    </p>
+              <div className="p-4 border-b bg-white relative z-10">
+                <div className="flex items-center gap-3 justify-between">
+                  <div className="flex items-center gap-3">
+                    <Avatar className="h-10 w-10">
+                      <img src={selectedUser.avatar} alt={selectedUser.name} />
+                    </Avatar>
+                    <div>
+                      <h3 className="font-medium flex items-center gap-2">
+                        {selectedUser.name} 
+                        {selectedUser.isTyping && (
+                          <span className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full flex items-center gap-1">
+                            <Type className="h-3 w-3" /> typing...
+                          </span>
+                        )}
+                      </h3>
+                      <p className="text-xs text-gray-500">
+                        {selectedUser.status === 'online' ? 'Active now' : 
+                         `${selectedUser.status.charAt(0).toUpperCase() + selectedUser.status.slice(1)}`}
+                      </p>
+                    </div>
                   </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      setSelectedUser(null);
+                      setShowAnimatedBg(false);
+                    }}
+                  >
+                    Close
+                  </Button>
                 </div>
               </div>
               
